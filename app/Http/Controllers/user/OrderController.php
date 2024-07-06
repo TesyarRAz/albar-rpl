@@ -22,13 +22,18 @@ class OrderController extends Controller
 
         $order = Order::join('status_order', 'status_order.id', '=', 'order.status_order_id')
             ->select('order.*', 'status_order.name')
-            ->where('order.status_order_id', 1)
+            ->where(fn($query) => $query
+                ->where('order.status_order_id', 1)
+                ->orWhere('order.status_order_id', 8)
+            )
             ->where('order.user_id', $user_id)->get();
         $dicek = Order::join('status_order', 'status_order.id', '=', 'order.status_order_id')
             ->select('order.*', 'status_order.name')
             ->where('order.status_order_id', '!=', 1)
             ->Where('order.status_order_id', '!=', 5)
             ->Where('order.status_order_id', '!=', 6)
+            ->Where('order.status_order_id', '!=', 7)
+            ->Where('order.status_order_id', '!=', 8)
             ->where('order.user_id', $user_id)->get();
         $histori = Order::join('status_order', 'status_order.id', '=', 'order.status_order_id')
             ->select('order.*', 'status_order.name')
@@ -36,6 +41,7 @@ class OrderController extends Controller
             ->Where('order.status_order_id', '!=', 2)
             ->Where('order.status_order_id', '!=', 3)
             ->Where('order.status_order_id', '!=', 4)
+            ->Where('order.status_order_id', '!=', 8)
             ->where('order.user_id', $user_id)->get();
 
         return view('user.order.order', [
@@ -127,7 +133,7 @@ class OrderController extends Controller
                     'invoice' => $request->invoice,
                     'user_id' => $userid,
                     'subtotal' => $request->subtotal,
-                    'status_order_id' => 1,
+                    'status_order_id' => 8,
                     'metode_pembayaran' => $request->metode_pembayaran,
                     'ongkir' => $request->ongkir,
                     'biaya_cod' => 10000,
@@ -140,7 +146,7 @@ class OrderController extends Controller
                     'invoice' => $request->invoice,
                     'user_id' => $userid,
                     'subtotal' => $request->subtotal,
-                    'status_order_id' => 1,
+                    'status_order_id' => 8,
                     'metode_pembayaran' => $request->metode_pembayaran,
                     'ongkir' => $request->ongkir,
                     'no_hp' => $request->no_hp,

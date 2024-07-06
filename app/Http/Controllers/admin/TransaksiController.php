@@ -44,6 +44,18 @@ class TransaksiController extends Controller
         ]);
     }
 
+    public function aturongkir()
+    {
+        //ambil data order yang status nya 8
+        $orderbaru = Order::join('status_order', 'status_order.id', '=', 'order.status_order_id')
+            ->join('users', 'users.id', '=', 'order.user_id')
+            ->select('order.*', 'status_order.name', 'users.name as nama_pemesan')
+            ->where('order.status_order_id', 8)
+            ->get();
+
+        return view('admin.transaksi.aturongkir', compact('orderbaru'));
+    }
+
     public function perludicek()
     {
         //ambil data order yang status nya 2 atau belum di cek / sudah bayar
@@ -66,6 +78,18 @@ class TransaksiController extends Controller
             ->get();
 
         return view('admin.transaksi.perludikirim', compact('orderbaru'));
+    }
+
+    public function diretur()
+    {
+        //ambil data order yang status nya 3 sudah dicek dan perlu dikirim(input no resi)
+        $orderbaru = Order::join('status_order', 'status_order.id', '=', 'order.status_order_id')
+            ->join('users', 'users.id', '=', 'order.user_id')
+            ->select('order.*', 'status_order.name', 'users.name as nama_pemesan')
+            ->where('order.status_order_id', 7)
+            ->get();
+
+        return view('admin.transaksi.diretur', compact('orderbaru'));
     }
 
     public function selesai()
@@ -129,5 +153,20 @@ class TransaksiController extends Controller
             ]);
 
         return redirect()->route('admin.transaksi.perludikirim')->with('status', 'Berhasil Menginput No Resi');
+    }
+
+    public function inputongkir(Order $order, Request $request)
+    {
+        $request->validate([
+            'ongkir' => 'required|integer',
+        ]);
+
+        $order->update([
+            'ongkir' => $request->ongkir,
+            'subtotal' => $order->subtotal + $request->ongkir,
+            'status_order_id' => 1,
+        ]);
+
+        return redirect()->route('admin.transaksi.aturongkir')->with('status', 'Berhasil Menginput Ongkir');
     }
 }

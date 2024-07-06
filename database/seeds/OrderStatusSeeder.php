@@ -18,6 +18,8 @@ class OrderStatusSeeder extends Seeder
             ['name' => 'Barang Di Kirim'],
             ['name' => 'Barang Telah Sampai'],
             ['name' => 'Pesanan Di Batalkan'],
+            ['name' => 'Barang Di Retur'],
+            ['name' => 'Atur Angka'],
         ];
         Orderstatus::insert($data);
     }

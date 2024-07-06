@@ -60,7 +60,19 @@
                         <tr>
                             <td>Biaya Ongkir</td>
                             <td>:</td>
-                            <td  class="p-2">Rp. {{ number_format($order->ongkir,2,',','.') }}</td>
+                            <td  class="p-2">
+                              @if($order->status_order_id == 8)
+                              <form action="{{ route('admin.transaksi.inputongkir', $order->id) }}" method="POST" class="input-group">
+                                @csrf
+                                <input name="ongkir" type="number" class="form-control form-control-sm" value="{{ $order->ongkir }}" min="0" required>
+                                <div class="input-group-append">
+                                  <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                                </div>
+                              </form>
+                              @else
+                              Rp. {{ number_format($order->ongkir,2,',','.') }}
+                              @endif
+                            </td>
                         </tr>
                         <tr>
                             <td>Kurir</td>

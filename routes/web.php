@@ -49,6 +49,8 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
     Route::post('/admin/product/update/{id}', 'admin\ProductController@update')->name('admin.product.update');
 
     Route::get('/admin/transaksi', 'admin\TransaksiController@index')->name('admin.transaksi');
+    Route::get('/admin/transaksi/aturongkir', 'admin\TransaksiController@aturongkir')->name('admin.transaksi.aturongkir');
+    Route::post('/admin/transaksi/aturongkir/{order}', 'admin\TransaksiController@inputongkir')->name('admin.transaksi.inputongkir');
     Route::get('/admin/transaksi/perludicek', 'admin\TransaksiController@perludicek')->name('admin.transaksi.perludicek');
     Route::get('/admin/transaksi/perludikirim', 'admin\TransaksiController@perludikirim')->name('admin.transaksi.perludikirim');
     Route::get('/admin/transaksi/dikirim', 'admin\TransaksiController@dikirim')->name('admin.transaksi.dikirim');
@@ -57,6 +59,8 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
     Route::post('/admin/transaksi/inputresi/{id}', 'admin\TransaksiController@inputresi')->name('admin.transaksi.inputresi');
     Route::get('/admin/transaksi/selesai', 'admin\TransaksiController@selesai')->name('admin.transaksi.selesai');
     Route::get('/admin/transaksi/dibatalkan', 'admin\TransaksiController@dibatalkan')->name('admin.transaksi.dibatalkan');
+    Route::get('/admin/transaksi/diretur', 'admin\TransaksiController@diretur')->name('admin.transaksi.diretur');
+
 
     Route::get('/admin/rekening', 'admin\RekeningController@index')->name('admin.rekening');
     Route::get('/admin/rekening/edit/{id}', 'admin\RekeningController@edit')->name('admin.rekening.edit');

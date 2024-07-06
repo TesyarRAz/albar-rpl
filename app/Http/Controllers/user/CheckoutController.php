@@ -46,7 +46,8 @@ class CheckoutController extends Controller
         ->get();
 
         //ambil hasil nya
-        $ongkir =  $cost[0]['costs'][0]['cost'][0]['value'];
+        // $ongkir =  $cost[0]['costs'][0]['cost'][0]['value'];
+        $ongkir = 0;
 
         //lalu ambil alamat user untuk ditampilkan di view
         $alamat_user = Alamat::join('cities', 'cities.city_id', '=', 'alamat.cities_id')
