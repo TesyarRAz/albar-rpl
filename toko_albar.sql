@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 05, 2020 at 01:37 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- Host: localhost:3306
+-- Generation Time: Jul 07, 2024 at 04:49 AM
+-- Server version: 8.0.30
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `laravel_toko_online`
+-- Database: `toko_albar`
 --
 
 -- --------------------------------------------------------
@@ -29,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `alamat` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `cities_id` int(11) NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `cities_id` int NOT NULL,
   `detail` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -49,7 +48,11 @@ INSERT INTO `alamat` (`id`, `cities_id`, `detail`, `user_id`, `created_at`, `upd
 (6, 103, 'Kawali', 8, '2020-03-25 02:48:49', '2020-03-25 02:48:49'),
 (7, 103, 'Kawali', 9, '2020-03-25 02:56:30', '2020-03-25 02:56:30'),
 (8, 103, 'Kawali', 10, '2020-03-25 03:02:54', '2020-03-25 03:02:54'),
-(9, 103, 'Kawali', 12, '2020-04-27 09:08:24', '2020-04-27 09:08:24');
+(9, 103, 'Kawali', 12, '2020-04-27 09:08:24', '2020-04-27 09:08:24'),
+(10, 17, 'Jl.Raya Baros, Rt 001 RW 007, Desa Baros, Kecamatan Baros Kota Sukabumi', 14, '2024-03-24 18:09:40', '2024-03-24 18:09:40'),
+(11, 17, 'Jl.Raya Baros, Rt 001 RW 007, Desa Baros, Kecamatan Baros Kota Sukabumi', 15, '2024-04-28 03:18:18', '2024-04-28 03:18:18'),
+(12, 431, 'Jl.Raya Baros, Rt 001 RW 007, Desa Baros, Kecamatan Baros Kota Sukabumi', 15, '2024-04-28 03:18:45', '2024-04-28 03:18:45'),
+(13, 17, 'Sukabumi', 17, '2024-07-06 06:00:22', '2024-07-06 06:00:22');
 
 -- --------------------------------------------------------
 
@@ -58,8 +61,8 @@ INSERT INTO `alamat` (`id`, `cities_id`, `detail`, `user_id`, `created_at`, `upd
 --
 
 CREATE TABLE `alamat_toko` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `city_id` int(11) NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `city_id` int NOT NULL,
   `detail` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -70,7 +73,7 @@ CREATE TABLE `alamat_toko` (
 --
 
 INSERT INTO `alamat_toko` (`id`, `city_id`, `detail`, `created_at`, `updated_at`) VALUES
-(1, 444, 'Kecamatan Baros', NULL, NULL);
+(1, 430, 'Jl.Raya Baros, Rt 001 RW 007, Desa Baros, Kecamatan Baros Kota Sukabumi', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -79,7 +82,7 @@ INSERT INTO `alamat_toko` (`id`, `city_id`, `detail`, `created_at`, `updated_at`
 --
 
 CREATE TABLE `categories` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -90,12 +93,10 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Kaos Bola', '2020-03-22 07:29:17', '2020-03-22 07:29:17'),
-(3, 'Sepatu Futsal', '2020-03-22 22:46:20', '2020-03-22 22:46:20'),
-(5, 'Raket Badminton', '2020-03-26 08:15:44', '2020-03-26 08:15:44'),
-(6, 'Sepatu Running', '2020-03-26 08:23:03', '2020-03-26 08:23:03'),
-(7, 'Sepatu Bola', '2020-03-26 08:27:27', '2020-03-26 08:27:27'),
-(8, 'Perlengkapan Kiper', '2020-03-26 08:30:56', '2020-03-26 08:30:56');
+(9, 'Perlengkapan Perawatan', '2024-03-22 00:11:30', '2024-03-22 00:11:30'),
+(10, 'Aksesoris Aquarium', '2024-03-22 00:11:56', '2024-03-22 00:11:56'),
+(11, 'Pakan Ikan', '2024-03-22 00:12:14', '2024-03-22 00:12:14'),
+(12, 'Teknik Aquarium', '2024-03-22 00:13:07', '2024-03-22 00:13:07');
 
 -- --------------------------------------------------------
 
@@ -104,9 +105,9 @@ INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
 --
 
 CREATE TABLE `cities` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `province_id` bigint(20) UNSIGNED NOT NULL,
-  `city_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `province_id` bigint UNSIGNED NOT NULL,
+  `city_id` bigint UNSIGNED NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -626,7 +627,7 @@ INSERT INTO `cities` (`id`, `province_id`, `city_id`, `title`, `created_at`, `up
 --
 
 CREATE TABLE `couriers` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
   `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -649,10 +650,10 @@ INSERT INTO `couriers` (`id`, `code`, `title`, `created_at`, `updated_at`) VALUE
 --
 
 CREATE TABLE `detail_order` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `order_id` bigint(20) UNSIGNED NOT NULL,
-  `product_id` bigint(20) UNSIGNED NOT NULL,
-  `qty` int(11) NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `order_id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `qty` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -662,8 +663,7 @@ CREATE TABLE `detail_order` (
 --
 
 INSERT INTO `detail_order` (`id`, `order_id`, `product_id`, `qty`, `created_at`, `updated_at`) VALUES
-(21, 29, 9, 2, '2020-03-28 05:37:40', '2020-03-28 05:37:40'),
-(22, 30, 15, 1, '2020-04-27 09:09:01', '2020-04-27 09:09:01');
+(29, 37, 38, 1, '2024-07-06 09:44:41', '2024-07-06 09:44:41');
 
 -- --------------------------------------------------------
 
@@ -672,12 +672,12 @@ INSERT INTO `detail_order` (`id`, `order_id`, `product_id`, `qty`, `created_at`,
 --
 
 CREATE TABLE `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
   `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -687,10 +687,10 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `keranjang` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `products_id` bigint(20) UNSIGNED NOT NULL,
-  `qty` int(11) NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `products_id` bigint UNSIGNED NOT NULL,
+  `qty` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -700,8 +700,7 @@ CREATE TABLE `keranjang` (
 --
 
 INSERT INTO `keranjang` (`id`, `user_id`, `products_id`, `qty`, `created_at`, `updated_at`) VALUES
-(14, 7, 4, 2, '2020-03-24 19:04:26', '2020-03-24 19:04:26'),
-(19, 8, 5, 1, '2020-03-25 02:54:09', '2020-03-25 02:54:09');
+(31, 15, 38, 1, '2024-04-28 03:09:33', '2024-04-28 03:09:33');
 
 -- --------------------------------------------------------
 
@@ -710,9 +709,9 @@ INSERT INTO `keranjang` (`id`, `user_id`, `products_id`, `qty`, `created_at`, `u
 --
 
 CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int UNSIGNED NOT NULL,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
+  `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -748,29 +747,29 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `order` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
   `invoice` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `subtotal` bigint(20) NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `subtotal` bigint NOT NULL,
   `no_resi` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status_order_id` bigint(20) UNSIGNED NOT NULL,
+  `status_order_id` bigint UNSIGNED NOT NULL,
   `metode_pembayaran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ongkir` int(11) NOT NULL,
+  `ongkir` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `biaya_cod` int(11) NOT NULL,
+  `biaya_cod` int NOT NULL,
   `no_hp` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `bukti_pembayaran` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `pesan` text COLLATE utf8mb4_unicode_ci NOT NULL
+  `pesan` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bukti_retur` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `order`
 --
 
-INSERT INTO `order` (`id`, `invoice`, `user_id`, `subtotal`, `no_resi`, `status_order_id`, `metode_pembayaran`, `ongkir`, `created_at`, `updated_at`, `biaya_cod`, `no_hp`, `bukti_pembayaran`, `pesan`) VALUES
-(29, 'ALV202003281234', 4, 1041000, '123123123123', 5, 'trf', 41000, '2020-03-28 05:37:40', '2020-03-28 05:51:51', 0, '0821241414221424', 'buktibayar/kct7Bn1JmR4BfPC1WvV0eQM8phBUAymZ2Si6oPAZ.jpeg', 'Ukuran XL Ya Mas'),
-(30, 'ALV202004270408', 12, 539000, NULL, 1, 'trf', 39000, '2020-04-27 09:09:01', '2020-04-27 09:09:01', 0, '3', NULL, 'f');
+INSERT INTO `order` (`id`, `invoice`, `user_id`, `subtotal`, `no_resi`, `status_order_id`, `metode_pembayaran`, `ongkir`, `created_at`, `updated_at`, `biaya_cod`, `no_hp`, `bukti_pembayaran`, `pesan`, `bukti_retur`) VALUES
+(37, 'ALV202407060444', 17, 20000, '782137912', 3, 'trf', 20000, '2024-07-06 09:44:41', '2024-07-06 21:48:02', 0, '8972137891237891237', 'buktibayar/si93ACPBg6MHoD5r1Ly1bZLURFXNdhkLRG2BrMZu.docx', 'niojikojoijiojiojio', 'buktiretur/QPLj1R6lSBUHcu60rzypEI91wy2r3HaFufdgwmCK.png');
 
 -- --------------------------------------------------------
 
@@ -791,16 +790,16 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `products` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `price` int(11) NOT NULL,
-  `weigth` int(11) NOT NULL,
-  `categories_id` bigint(20) UNSIGNED NOT NULL,
+  `price` int NOT NULL,
+  `weigth` int NOT NULL,
+  `categories_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `stok` int(11) NOT NULL
+  `stok` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -808,21 +807,26 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `image`, `price`, `weigth`, `categories_id`, `created_at`, `updated_at`, `stok`) VALUES
-(3, 'Jersey PSM', 'Jersey Persib 2020', 'imageproduct/wVC7Lffj05reEFfbdeeiusGZ192hYCDFz1SSP5sm.jpeg', 500000, 500, 1, '2020-03-22 21:43:27', '2020-03-26 08:08:12', 10),
-(9, 'Jersey Persebaya Home', 'Jersey Persebaya 2020', 'imageproduct/nT5A1b7tPKdBMW4ep91ymByircv9ENy0duYzQPYz.jpeg', 500000, 500, 1, '2020-03-22 21:43:27', '2020-03-26 08:06:01', 8),
-(15, 'Jersey Persib', 'Jersey Persib 2020', 'imageproduct/E3eNi22KHXz0cDVR3bL8s5nxAxzhZ3U1EXNBJ6oY.jpeg', 500000, 500, 1, '2020-03-22 21:43:27', '2020-03-26 08:06:24', 10),
-(21, 'Jersey Persebaya Away', 'Jersey Persib 2020', 'imageproduct/LgEvIM3TxZyN2W2Rydq7u9jt98ZXY7fwmYjNfN0r.jpeg', 500000, 500, 1, '2020-03-22 21:43:27', '2020-03-26 08:07:19', 10),
-(27, 'Specs Lightning', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores! Cupiditate dolore molestias dolor laboriosam officiis, aliquam enim alias dignissimos itaque maxime ea quisquam soluta, harum debitis sequi autem veniam.\r\nLorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores! Cupiditate dolore molestias dolor laboriosam officiis, aliquam enim alias dignissimos itaque maxime ea quisquam soluta, harum debitis sequi autem veniam.\r\nLorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores! Cupiditate dolore molestias dolor laboriosam officiis, aliquam enim alias dignissimos itaque maxime ea quisquam soluta, harum debitis sequi autem veniam.\r\nLorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores! Cupiditate dolore molestias dolor laboriosam officiis, aliquam enim alias dignissimos itaque maxime ea quisquam soluta, harum debitis sequi autem veniam.', 'imageproduct/RpZlA9MPbe85n0L3bWae0G5HPhslLngWLD6iP6Lv.jpeg', 300000, 400, 3, '2020-03-26 08:13:58', '2020-03-26 08:13:58', 10),
-(28, 'Sepatu Futsal Ortuseight', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores! Cupiditate dolore molestias dolor laboriosam officiis, aliquam enim alias dignissimos itaque maxime ea quisquam soluta, harum debitis sequi autem veniam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores! Cupiditate dolore molestias dolor laboriosam officiis, aliquam enim alias dignissimos itaque maxime ea quisquam soluta, harum debitis sequi autem veniam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores! Cupiditate dolore molestias dolor laboriosam officiis, aliquam enim alias dignissimos itaque maxime ea quisquam soluta, harum debitis sequi autem veniam.', 'imageproduct/6kN27lKUD7uX11F452hCZcHrnhNpAijdo1G0Irir.jpeg', 500000, 500, 3, '2020-03-26 08:15:07', '2020-03-26 08:15:07', 10),
-(29, 'Raket Yonex', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores! Cupiditate dolore molestias dolor laboriosam officiis, aliquam enim alias dignissimos itaque maxime ea quisquam soluta, harum debitis sequi autem veniam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores! Cupiditate dolore molestias dolor laboriosam officiis, aliquam enim alias dignissimos itaque maxime ea quisquam soluta, harum debitis sequi autem veniam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores! Cupiditate dolore molestias dolor laboriosam officiis, aliquam enim alias dignissimos itaque maxime ea quisquam soluta, harum debitis sequi autem veniam.', 'imageproduct/pjc8KeATDJpUxxOC9OPuEVWk4rcBIWck6FAmv2aA.webp', 400000, 200, 5, '2020-03-26 08:20:38', '2020-03-26 08:20:38', 15),
-(30, 'Raket Lining', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores! Cupiditate dolore molestias dolor laboriosam officiis, aliquam enim alias dignissimos itaque maxime ea quisquam soluta, harum debitis sequi autem veniam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores! Cupiditate dolore molestias dolor laboriosam officiis, aliquam enim alias dignissimos itaque maxime ea quisquam soluta, harum debitis sequi autem veniam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores! Cupiditate dolore molestias dolor laboriosam officiis, aliquam enim alias dignissimos itaque maxime ea quisquam soluta, harum debitis sequi autem veniam.', 'imageproduct/vibkZnFP2tgXU7JIIuhzCbZO6bR2J649rztOLyKy.jpeg', 400000, 200, 5, '2020-03-26 08:22:12', '2020-03-26 08:22:12', 5),
-(31, 'Sepatu Lari Adidas CloudFoam', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores! Cupiditate dolore molestias dolor laboriosam officiis, aliquam enim alias dignissimos itaque maxime ea quisquam soluta, harum debitis sequi autem veniam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores! Cupiditate dolore molestias dolor laboriosam officiis, aliquam enim alias dignissimos itaque maxime ea quisquam soluta, harum debitis sequi autem veniam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores! Cupiditate dolore molestias dolor laboriosam officiis, aliquam enim alias dignissimos itaque maxime ea quisquam soluta, harum debitis sequi autem veniam.', 'imageproduct/5ehpYvxwfZA7ANQuePPFexiYpnmhix4NYRz3s9Ac.jpeg', 160000, 400, 1, '2020-03-26 08:24:42', '2020-03-26 08:24:42', 10),
-(32, 'Sepatu Lari Nike', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?', 'imageproduct/uFSLcq3ptHCnZYMBwnCLkQa6gjLuFKFg3yJ2t30O.jpeg', 359000, 200, 6, '2020-03-26 08:26:07', '2020-03-26 08:26:07', 5),
-(33, 'Sepatu Lari Nike Airmax', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?', 'imageproduct/5RABbJFtD8frPynvQQpGhlM27OhJIRtOjUPEoWWs.jpeg', 400000, 200, 6, '2020-03-26 08:27:04', '2020-03-26 08:27:04', 12),
-(34, 'Specs Football Illuzion', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?', 'imageproduct/TYvl5C9Dtpa6qvD9TdfFXFqXwLCyKAvffBPcSnkN.webp', 490000, 1000, 7, '2020-03-26 08:29:14', '2020-03-26 08:29:14', 10),
-(35, 'Puma Football', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?', 'imageproduct/hAaaUacJPuOL23RXWCf7irkPmwZCsHzDyo8tScCL.jpeg', 390000, 1000, 7, '2020-03-26 08:30:14', '2020-03-26 08:30:14', 14),
-(36, 'Ortuseight Gloves', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?', 'imageproduct/isguCRAT54imPFsvhBnkRydzGaIlcuNg8hn41DuR.jpeg', 499000, 400, 8, '2020-03-26 08:32:09', '2020-03-26 08:32:09', 20),
-(37, 'Nike Gloves', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla expedita, omnis eligendi tempore officiis enim fugit aliquam molestiae iure, quod mollitia perferendis alias, cumque voluptate laborum quae voluptates. Provident, cupiditate?', 'imageproduct/BhDeV93jjwmC9ADwvdIxTHayqngECg2eSgoTfgsY.jpeg', 699000, 200, 8, '2020-03-26 08:33:04', '2020-03-26 08:33:04', 10);
+(38, 'Armada Aquarium || Mesin aquarium 1200A', 'Mesin Aquarium 1200 A dari merek Armada adalah salah satu perangkat penting untuk memastikan lingkungan air di dalam akuarium tetap bersih dan sehat untuk ikan dan tanaman air. Mesin ini dirancang dengan teknologi canggih untuk memberikan kinerja optimal dalam menjaga kualitas air. Berikut adalah beberapa fitur dan spesifikasi utama dari Mesin Aquarium 1200 A Merek Armada:\r\n\r\n1. Kapasitas yang Luas: Dengan kapasitas yang luas, mesin ini cocok untuk digunakan dalam akuarium berukuran besar, termasuk akuarium berkapasitas 1000 liter atau lebih.\r\n\r\n2. Sistem Filtrasi Ganda: Dilengkapi dengan sistem filtrasi ganda yang efisien, mesin ini dapat menyaring partikel-partikel kotoran, sisa makanan, dan zat-zat kimia berbahaya dari air. Sistem filtrasi ini membantu menjaga kejernihan air dan mengurangi tingkat amonia serta nitrat.\r\n\r\n3. Pompa Kuat: Mesin ini dilengkapi dengan pompa yang kuat dan dapat diandalkan untuk memastikan sirkulasi air yang baik di dalam akuarium. Pompa ini juga dapat menciptakan aliran air yang optimal untuk ikan dan tanaman air.\r\n\r\n4. Desain Kompak: Mesin Aquarium 1200 A dirancang dengan desain yang kompak dan ringkas, sehingga mudah dipasang dan tidak memakan banyak ruang di dalam akuarium.\r\n\r\n5. Tahan Lama dan Mudah Dipelihara: Dibuat dengan bahan berkualitas tinggi dan teknologi mutakhir, mesin ini tahan lama dan membutuhkan sedikit perawatan. Bagian-bagian mesin dapat dibersihkan dengan mudah untuk menjaga kinerja optimalnya.\r\n\r\n6. Dapat Dikendalikan Secara Otomatis: Mesin ini dilengkapi dengan fitur kontrol otomatis yang memungkinkan pengguna untuk mengatur waktu operasi dan kecepatan pompa sesuai kebutuhan.\r\n\r\n7. Perlengkapan Tambahan: Selain itu, Mesin Aquarium 1200 A juga dilengkapi dengan berbagai perlengkapan tambahan seperti selang, klip pengait, dan aksesori instalasi lainnya untuk memudahkan penggunaan dan pemasangan.\r\n\r\nDengan Mesin Aquarium 1200 A Merek Armada, Anda dapat memastikan lingkungan air di dalam akuarium tetap bersih, jernih, dan sehat, sehingga ikan dan tanaman air dapat tumbuh dan berkembang dengan baik. Mesin ini adalah pilihan yang ideal bagi para penghobi akuarium yang mengutamakan kualitas air dan kesejahteraan hewan peliharaan mereka.', 'imageproduct/T9wR5tfYkEdOOkM3xalvb9lyOgTLGy3W573gn7aW.jpg', 50000, 500, 9, '2024-03-22 07:15:54', '2024-03-22 07:15:54', 100),
+(39, 'Amara || Hanging Filter', 'filter gantung, cocok untuk tank/akuarium ukuran Besar (60-80cm) desaign yang baru membuat tampilan hang on ini lebih bagus dan elegan dan kokoh untuk mendapatkan filtrasi yang baik..\r\njika ingin dapatkan hasil yang terbaik pakai tambahan bio ceramic ring dan bioball kecil\r\n\r\nspesikasi:\r\nPower : 12 Watt\r\nf max : 800 Liter/jam\r\nSkimmer : ada\r\ncarbon aktif : ada\r\nfilter biofil/foam biru dan putih full set lengkap', 'imageproduct/e2BEDmM7TGPovdhMs56oeH22V7sg07DDHNr6KIoV.jpg', 145000, 800, 9, '2024-03-22 19:59:59', '2024-03-22 20:05:09', 20),
+(40, 'Armada || Undergravel Filter', 'WAJIB BACA, (AKAN DIKIRIM MERK YANG READY SEPERTI AQURA/RECENT/KIYOSAKI/ARMADA SP KUALITAS SAMA 100% DARI DISTRIBUTORNYA BEGITU CUMAN BEDA DUS', 'imageproduct/zY7RSnqkoSbNEtyBWw6sNVTMTRhnszB41CCPljhH.jpg', 60000, 600, 9, '2024-03-22 20:04:10', '2024-03-22 20:05:33', 20),
+(41, 'Kyoto || Aquarium Air Pump', 'KYOTO P-999 AERATOR AIR PUMP POMPA UDARA ANGIN GELEMBUNG AQUARIUM 1 LUBANG WAY Spesifikasi: - Daya 2.5W - Output maks. 2.5L/min - Tekanan 0.014 Mpa', 'imageproduct/QIQ7zprG8TOjlh2eL7DzxipAdHLIImGCoor6oDWg.jpg', 55000, 400, 9, '2024-03-22 20:08:18', '2024-03-22 20:08:18', 10),
+(42, 'Yamano || Hangon Filter', 'Pompa hanging filter dilengkapi dengan spon filter didalamnya, Merk YAMANO sebelumnya MP401 diganti menjadi MP44 spek sama ya kak, DAYA 4WATT, F MAX', 'imageproduct/QuXsrpTngOPJMl5Im8yOiDq8qIuDQIYCVQx5wAtt.jpg', 65000, 400, 9, '2024-03-22 20:18:43', '2024-03-22 20:18:43', 20),
+(43, 'Kandila || Pompa Air 1200 sp', 'Model : KD 1200 \r\nType : Submersible Pump ( Pompa Celup ) \r\nVoltage : 220 - 240V \r\nPower : 12W \r\nHMax : 1m \r\nFmax : 850L/h', 'imageproduct/rOwLpyKhVQ9ezTFaNkw0X786rDCOaivJpRi3eAkR.jpg', 55000, 400, 9, '2024-03-22 20:23:46', '2024-03-22 20:23:46', 20),
+(44, 'Kandila || Pompa Air Celup Aquarium Eco - 1800', 'Produk yang kami jual merupakan produk ASLI ! \r\nNusantara Oasis merupakan First Hand Supplier yang artinya kami tidak menjual barang KW ataupun PALSU', 'imageproduct/6o862h1PKJ2xl9bbohfiP3FlcM4w1Zp78inGbjLg.jpg', 85000, 500, 9, '2024-03-22 20:27:20', '2024-03-22 20:27:20', 30),
+(45, 'Sakkai Pro || Aquarium Sponge Filter', 'SAKKAI PRO. baling baling filter aquarium. \r\nfilter aquarium super jernih. gelembung air aquarium mini. \r\nfilter akuarium pompa udara. spare part pompa', 'imageproduct/403LdoavXY4HMQNiL3Mpa3fI2XlgIakKqlVDIMU5.jpg', 15000, 50, 9, '2024-03-22 20:32:43', '2024-03-22 20:32:43', 20),
+(46, 'Multi || Corner Filter', 'HARGA PER 1 BUAH, \r\nuntuk menyaring aquarium ikan hias kesayangan anda yg pengoperasiannya dibantu menggunakan mesin udara', 'imageproduct/SluA3ua731Z0PA4SnEqg1P1myiPfYb3zyt8r0aMT.jpg', 25000, 100, 9, '2024-03-22 20:36:00', '2024-03-22 20:36:00', 40),
+(47, 'GINGA || Aquarium Heater', 'Fitur :\r\n- Otomatis menstabilkan suhu dan cepat panas\r\n- Pemanasan bertahap dan hemat energi\r\n- Batang Stainless Stell murni, tahan ledakan dan tahan korosi\r\n- Kontrol suhu yang tepat, Pengaturan sederhana dan mudah dibaca indikator suhu, Isolasi ganda tahan air.\r\n\r\nBerfungsi untuk :\r\n- menstabilkan suhu air\r\n- mencegah perkembangan parasit ( white spot )\r\n- sistem otomatis off jika mencapai suhu ideal\r\n- sistem celup / submersible\r\n- suhu ideal bisa diatur\r\n\r\nLAMPU HEATER INDIKATOR AKAN MENYALA APABILA DIPUTAR SAMPAI KE ANGKA YANG PALING BESAR DAN TERASA BUNYI KLIK\r\n\r\nUkuran yg efesien dalam volume air\r\n1. Volume air 25 Liter disarankan 25W\r\n2. Volume air 50 Liter disarankan 50W\r\n3. Volume air 75 Liter disarankan 75W\r\n4. Volume air 100Liter disarankan 100W\r\n5. Volume air 200Liter disarankan 200W\r\n6. Volume air 300Liter disarankan 300W', 'imageproduct/182A3f7X9a3Cuwt9UV743qJNCZ1XpMI7SlnggRi8.jpg', 60000, 100, 9, '2024-03-22 20:43:46', '2024-03-22 20:43:46', 10),
+(48, 'Yamano || Pemanas Air Aquarium', 'Heater Aquarium Yamano 100 Watt Stainless\r\n\r\nKEUNGGULAN:\r\n~ Anti pecah, anti karat karena berbahan stainless stell\r\n~ Lebih aman dalam pengiriman ekspedisi\r\n~ Design elegan, awet dan berkualitas tinggi\r\n~ Pengatur suhu 20C - 32C\r\n~ Waterproof, menggunakan isolasi anti air rangkap (double insulation)\r\n~ Aliran listrik aman tidak bocor/menyetrum\r\n~ Tingkat kehangatan dapat disesuaikan dengan suhu yg dibutuhkan ikan peliharaan anda\r\n\r\nSPESIFIKASI:\r\n~ Model : Yamano 100 watt\r\n~ Tipe : full terendam\r\n~ Voltage : 220V -240V 50-60 Hz\r\n~ Power : 100 wat', 'imageproduct/T1Qa71eshc9tiORpbZUdi93JkgQQrYo61UsatcWL.jpg', 70000, 70, 9, '2024-03-22 20:49:03', '2024-03-22 20:49:03', 10),
+(49, 'Armada || Box Kosong Mini', 'BERAT ONGKIR : @ 1.200 GRAM ( 1 KG )\r\n( Maximal kan Ongkir anda untuk membeli dalam Jumlah banyak , agar tidak Rugi Biaya Ongkir )\r\n\r\nMELAYANI DROPSHIP ( DS )\r\n\r\n( HARGA BELUM TERMASUK TAMBAHAN BUBBLEWRAP DI SETIAP PRODUK , Demi Keamanan & Mengurangi Resiko Rusak di Perjalanan )\r\n============================\r\nBox Filter Kosong Box Armada Kotak Filter Aquarium Atas Box Kosong Kotak Kosong Filter Akuarium\r\n\r\nBox filter merupakan tempat media filter yang diletakkan di atas akuarium untuk menampung air yang disedot oleh pompa filter.\r\n\r\nPerlu diperhitungkan rentang / jangkauan kotak filter dan penyangganya agar dapat diletakkan di atas akuarium.\r\n\r\nBisa diisi kapas saja atau bisa juga ditambah zeolite dan karbon aktif.\r\n\r\nMerk : Armada\r\nType / Ukuran : mini\r\nCocok untuk Aquarium ukuran : 20 - 35 cm\r\n\r\nType / Ukuran : Sedang\r\nCocok untuk Aquarium ukuran : 40, 50 dan 60 cm\r\n\r\nType / Ukuran : Jumbp / Besar\r\nCocok untuk Aquarium ukuran : 70 - 100cm\r\n\r\n- Sirkulasi air yang ideal dan mesin oksigen pompa udara digunakan untuk kekuatan filter undergravel-mesin gelombang/ filter sponge dan bisa digunakan sebagai mesin pompa air\r\n- Serapan kotoran jaga kebersihan air, cocok untuk segala jenis aquarium\r\n- Kompatibel utk segala jenis mesin celup\r\n\r\nCatatan :\r\n- Ini hanya Box / kotak kosong saja jadi tidak ada mesin dan selang, anda akan mendapatkan sesuai Photo saja', 'imageproduct/gjIj4fPVv7wpSUn3wzGNp6AAQmXVdQ0yMHMg2vWc.jpg', 25000, 50, 9, '2024-03-22 21:18:35', '2024-03-22 21:18:35', 100),
+(50, 'Bio Foam Crown 58 S', 'Cara kerja sponge filter adalah dengan memanfaatkan aliran gelembung udara yang secara alami akan naik ke atas permukaan akuarium. Bersamaan dengan naiknya gelembung udara maka secara tidak langsung aluran udara tersebut menarik partikel-partikel mengikuti aliran udara tersebut. Dalam hal ini partikel tersebut adalah kotoran pada akuarium. Selanjutnya kotoran yang tertarik atau terhisap oleh aliran udara ke atas akan difilterisasi oleh busa pada sponge filter.\r\n\r\ndikarenakan kebanyakan sponge filter ini diaplikasikan dengan aerator, apakah cocok digunakan pada aquascape yang mana kadar oksigen yang berlebihan akan mempengaruhi tumbuhan air pada aquascape. Perlu dicoba dulu sejauh mana akan mempengaruhinya, karena bila melihat cara kerjanya justru sponge filter cocok dengan aquascape yaitu daya hisap filter yang tidak terlalu besar sehingga partikel nutrisi tanaman tidak tersedot oleh filter begitupun tanaman dan medianya itu sendiri.\r\n\r\n- Cocok untuk aquarium 40cm (mini)\r\n- Bagus untuk ikan kecil, jadi tidak tersedot filter.\r\n- Mudah perawatannya, karna busa filter terlihat dari luar aquarium.\r\n- Cara kerja filter ini menggunakan bantuan mesin aerator / mesin gelembung.\r\n\r\nbio filter aquarium internal filter\r\nmenggunakan mesin aerator untuk sirkulasi filter ini\r\n\r\nWarna busa tergantung persedian\r\ndiameter : 8.5cm\r\ntinggi : 9cm\r\nlebar : 5cm', 'imageproduct/osQTe3EALzVXa6wFimtpl2tPKoaA5amKmfenuAdP.jpg', 15000, 50, 9, '2024-03-22 21:25:03', '2024-03-22 21:25:03', 20),
+(51, 'lampu akuarium lampu celup kandila Z-40-L, 40 cm - Putih di De N De Olshop', 'lampu kandila z 40 L\r\n\r\npanjang lampu 40 cm\r\npower 8.4 watt\r\nled 2 baris\r\n\r\nPENTING\r\n1.packing kardus plus buble wrap\r\n2.tidak ada garansi toko\r\n3.barang dikirim dalam kondisi ok, pecah/rusak bukan tanggung jawab kami, silahkan tambah asuransi untuk keamanan\r\n\r\nmembeli berarti setuju, no kompalin, no retur', 'imageproduct/IOtRKu2QpGvtFBx90qDmA1GYw8hW8GTGjuPaYklB.jpg', 30000, 50, 9, '2024-03-22 21:59:28', '2024-03-22 21:59:28', 100),
+(52, 'Sakkai Pro || SP 30 cm LED T4 Aquarium Akuarium', 'Lampu LED Aquarium Sakkai Pro LED-SP 30 adalah lampu led celup (submersible) 3 warna yang mampu menghasilkan cahaya super terang dengan penggunaan daya yang rendah. Desainnya simple dan elegan. Dapat beroperasi hingga 50000 jam. Bentuknya ramping dan tidak membutuhkan tempat yang besar. Instalasi dan perawatan mudah. Sangat cocok digunakan pada aquarium, aquascape dan kolam ikan ukuran minimal 30 cm.\r\n\r\nLED-SP 30 dilengkapi dengan 3 mode lampu yang dapat diubah sesuai kebutuhan, yakni biru-putih, biru-hijau-merah, dan merah-biru-putih-hijau. Untuk mengubah mode lampu cukup dengan menekan tombol power atau saklar on/off untuk mematikan dan nyalakan kembali.\r\n\r\nDetail Produk:\r\n\r\nMerk: Sakkai Pro\r\nType: LED-SP 30\r\nDaya: 6 Watt\r\nVoltage: 220-240V / 50Hz\r\nPanjang lampu: 30 cm\r\nDiameter lampu: 18.5 mm\r\nMode lampu: 3 mode\r\nWarna lampu: 3 warna\r\nHarga yang tertera adalah harga per pcs.\r\n\r\nUntuk pertanyaan lain dan info lebih lanjut, silahkan chat kami.', 'imageproduct/92KwAAe0YEoLCHHGzmS8K1d0yKf7Gur9nunISJcj.jpg', 52000, 50, 9, '2024-03-23 23:52:08', '2024-03-23 23:52:08', 100),
+(53, 'Agaru', 'pakan agaru', 'imageproduct/BSU3sHioxdQktMJKcd4B1KEa6PvOYs0C2IK9WGKA.jpg', 8000, 100, 11, '2024-03-24 00:32:58', '2024-03-24 00:32:58', 100),
+(54, 'Maggot Super Plus 50g BSF Ulat Hongkong Pakan Arwana Louhan Channa Pre', 'Maggot Super Plus varian maggot atau larva lalat BSF yang dikeringkan dan cocok untuk pakan segala jenis ikan hias dan predator.\r\n\r\nMemiliki banyak manfaat seperti :\r\n1. Meningkatkan kecerahan warna\r\n2. Mempercepat pertumbuhan ikan\r\n3. Sebagai anti stess dan daya tahan tubuh sehingga ikan tidak mudah sakit\r\n\r\nCocok untuk ikan koi, arwana, channa, louhan, oscar, dan ikan predator lainnya.\r\n\r\nKandungan nutrisi :\r\nProtein : 40 - 44%\r\nLemak : 15-25%\r\nSerat : 4-7%\r\nPhospor : 0,6 -1,5%\r\nCalcium : 5-8%\r\n\r\nBerat bersih 50g.\r\nWarna maggot tidak kehitaman.', 'imageproduct/LdF7n6HzDFTU0kVXzwoWKAGlfISZVycsalOprcyw.jpg', 19000, 50, 11, '2024-03-24 00:36:56', '2024-03-24 00:36:56', 50),
+(55, 'Hokky Louhan - 3in1 Formula 100gr', 'Keunggulan :\r\n• Mencerahkan warna louhan\r\n• Kandungan nutrisi lengkap dan seimbang\r\n• Memacu pertumbuhan kepala\r\n\r\nBerat bersih 100gr', 'imageproduct/ckhG573ax6nVtjq0tSdq6AYTWTfKbBzYwJDmcWyz.jpg', 22000, 100, 11, '2024-03-24 00:51:12', '2024-03-24 00:51:12', 100),
+(56, 'Akari Premium Maxi pelet pakan ikan Cichild Tropical Original - repack 50 gram', 'Akari Premium Maxi Chiclid - Tropical Multi Color\r\nready repack 10 , 25 dan 50 gram\r\nFloating type\r\nPelet : 1 mm\r\n\r\nPelet AKARI Premium Maxi Cichlid adalah pakan kualitas tinggi mengandung *Astaxanthin++* untuk mencemerlangkan warna merah dan *Spirulina++* untuk mempertahankan warna lain seperti kuning, biru, dll pada ikan cichlid anda.\r\n\r\nDiformulasikan dengan protein tinggi untuk menunjang pertumbuhan dan bentuk tubuh yang ideal pada ikan anda dan juga mengandung Garlic dan Vitamin C untuk sistem imunitas tubuh yang sehat dan anti stress.\r\n\r\nTIPS PEMBERIAN Pelet AKARI Premium Maxi Cichlid :\r\n\r\n1. Berikan pakan 2-4 kali sehari, sedikit saja jangan berlebihan, tergantung nafsu makan ikan.\r\n\r\n2. Buang pakan yang tersisa setelah 5 menit agar tidak kelebihan makan dan mengakibatkan polusi air.\r\n\r\n(tambahkan bubble wrap utk packing lebih aman tersedia di etalase )\r\n\r\nMAAF TIDAK MENJUAL BARANG KW ATAU BEKAS\r\n\r\nKUALITAS DAN PELAYANAN YANG TERUTAMA!', 'imageproduct/3nnQqZNBuP9VwbHwbFYzT5Q6050VtL8l2XRu2pWV.jpg', 25000, 50, 11, '2024-03-24 00:53:45', '2024-03-24 00:53:45', 100),
+(57, 'Takari 100 Gram 100g 100 gr Pakan Ikan Hias Takari Makanan Ikan Koi', 'Ada 3 pilihan kemasan:\r\n1. 100g\r\n2. 250g\r\n3. 500g\r\n\r\nTakari Fish Food merupakan resep istimewa yang mengandung nilai nutrisi yang cukup untuk pertumbuhan yang sehat bagi ikan\r\n\r\nFloating Type\r\nTidak mengeruhkan air\r\n\r\nKeunggulan:\r\n- Dapat meningkatkan warna pada ikan\r\n- Merupakan makanan ikan yang mengambang sehingga tidak akan membuat air keruh\r\n- Mudah dicerna ikan dengan baik\r\n\r\nKomposisi:\r\nFish meal, shrimp meal, soybean meal, vitamins & minerals premix, pigment enhancer, antioxidant, etc.\r\n\r\nUntuk ikan : Mas koki, cupang, louhan, manfish, guppy, platis, black molly, komet, discuss, neon tetra, black ghost\r\n\r\nCara pemakaian:\r\nBerikan makanan 2 kali sehari dengan menebarkan ke permukaan secukupnya untuk dihabiskan oleh ikan dalam 15 menit. Jangan memberi makan berlebihan', 'imageproduct/CrTLkzsfaTc5wNgHJNzU1K9B9p5nt1ThYMtBqviu.jpg', 4326, 100, 11, '2024-03-24 00:57:07', '2024-03-24 00:57:07', 100);
 
 -- --------------------------------------------------------
 
@@ -831,8 +835,8 @@ INSERT INTO `products` (`id`, `name`, `description`, `image`, `price`, `weigth`,
 --
 
 CREATE TABLE `provinces` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `province_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `province_id` bigint UNSIGNED NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -885,7 +889,7 @@ INSERT INTO `provinces` (`id`, `province_id`, `title`, `created_at`, `updated_at
 --
 
 CREATE TABLE `rekening` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
   `bank_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `atas_nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `no_rekening` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -910,7 +914,7 @@ INSERT INTO `rekening` (`id`, `bank_name`, `atas_nama`, `no_rekening`, `created_
 --
 
 CREATE TABLE `status_order` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -926,7 +930,9 @@ INSERT INTO `status_order` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (3, 'Telah Di Bayar', NULL, NULL),
 (4, 'Barang Di Kirim', NULL, NULL),
 (5, 'Barang Telah Sampai', NULL, NULL),
-(6, 'Pesanan Di Batalkan', NULL, NULL);
+(6, 'Pesanan Di Batalkan', NULL, NULL),
+(7, 'Barang Di Retur', NULL, NULL),
+(8, 'Atur Ongkir', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -935,7 +941,7 @@ INSERT INTO `status_order` (`id`, `name`, `created_at`, `updated_at`) VALUES
 --
 
 CREATE TABLE `users` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -961,7 +967,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 (9, 'Uji Coba', 'ujicoba@gmail.com', NULL, '$2y$10$SPLvC2/Fl3y1lcMKdxrIHeRc6Bmkq/uHx76PPMfl1zUgQr1BvEEiK', 'customer', NULL, '2020-03-25 02:55:54', '2020-03-25 02:55:54'),
 (10, 'Uji Coba 2', 'ujicoba2@gmail.com', NULL, '$2y$10$gHZs7AZQ9SiGJAQU3thdsO8zVZn8SiBpqvVLlp2.FqV9Ymm0iW8bK', 'customer', NULL, '2020-03-25 03:01:34', '2020-03-25 03:01:34'),
 (11, 'Uji Coba 3', 'ujicoba3@gmail.com', NULL, '$2y$10$091OIp4OnMCYDJ8kuzMryuTlAMTeNBvPL0tggU.99JcgX7VJ8Lmfe', 'customer', NULL, '2020-03-26 00:41:13', '2020-03-26 00:41:13'),
-(12, 'fikri', 'fikri1234@gmail.com', NULL, '$2y$10$FaXz24nJ4LhBKso5yzUmru61ck8OnnfU9gUZT.AyFU0N8.hHzZzUy', 'customer', NULL, '2020-04-27 09:07:37', '2020-04-27 09:07:37');
+(12, 'fikri', 'fikri1234@gmail.com', NULL, '$2y$10$FaXz24nJ4LhBKso5yzUmru61ck8OnnfU9gUZT.AyFU0N8.hHzZzUy', 'customer', NULL, '2020-04-27 09:07:37', '2020-04-27 09:07:37'),
+(13, 'albar', 'a@gmail.com', NULL, '$2y$10$VMp.D1ndjQOBc6qumifTY.RTIVJCmOPkipo4Ww9anIXlqkUUa5F0u', 'admin', NULL, '2024-03-22 00:08:43', '2024-03-22 00:08:43'),
+(14, 'c', 'c@gmail.com', NULL, '$2y$10$8nb7wJAwAl4pn2wUMibHbuUDlXYvJvG.AsxEcrtQcQDDkLwKC02nG', 'customer', NULL, '2024-03-24 18:08:48', '2024-03-24 18:08:48'),
+(15, 'contoh', 'contoh@gmail.com', NULL, '$2y$10$B56M0T.vlMK1rhslm2DzRuAdYW485dA7lfhsLsVG7odTECx6CWF26', 'customer', NULL, '2024-04-27 20:11:52', '2024-04-27 20:11:52'),
+(16, 'albar', 'albar@gmail.com', NULL, '$2y$10$Rr7KYsy6nyDjbwN1Q7Wlz.STSgo0x7AzYdXUoN22Yrp1J2ttPFQWq', 'customer', NULL, '2024-05-28 02:10:21', '2024-05-28 02:10:21'),
+(17, 'user', 'user@example.com', NULL, '$2y$10$EAjHC./U5A2k2/iDtdrvDud6Z6yTqt/2ZmAAA12POTKR5e1kvl9Vi', 'customer', NULL, '2024-07-06 05:59:28', '2024-07-06 05:59:28');
 
 --
 -- Indexes for dumped tables
@@ -1072,91 +1083,91 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `alamat`
 --
 ALTER TABLE `alamat`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `alamat_toko`
 --
 ALTER TABLE `alamat_toko`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `cities`
 --
 ALTER TABLE `cities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=536;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=536;
 
 --
 -- AUTO_INCREMENT for table `couriers`
 --
 ALTER TABLE `couriers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `detail_order`
 --
 ALTER TABLE `detail_order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `provinces`
 --
 ALTER TABLE `provinces`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `rekening`
 --
 ALTER TABLE `rekening`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `status_order`
 --
 ALTER TABLE `status_order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
