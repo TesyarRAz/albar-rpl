@@ -121,6 +121,23 @@ class OrderController extends Controller
         return redirect()->route('user.order');
     }
 
+    public function retur(Order $order, Request $request)
+    {
+        $request->validate([
+            'bukti_retur' => 'required',
+        ]);
+
+        if ($request->file('bukti_retur')) {
+            $file = $request->file('bukti_retur')->store('buktiretur', 'public');
+
+            $order->bukti_retur = $file;
+            $order->status_order_id  = 7;
+
+            $order->save();
+        }
+        return redirect()->route('user.order');
+    }
+
     public function simpan(Request $request)
     {
         //untuk menyimpan pesanan ke table order

@@ -45,7 +45,7 @@
                         @csrf
                             <div class="form-group">
                             <label for="">Upload Bukti Pembayaran</label>
-                            <input type="file" name="bukti_pembayaran" id="" class="form-control" required>
+                            <input type="file" name="bukti_pembayaran" id="" class="form-control" accept="image/*" required>
                             </div>
                             <div class="text-right">
                             <button type="submit" class="btn btn-primary">Kirim</button>

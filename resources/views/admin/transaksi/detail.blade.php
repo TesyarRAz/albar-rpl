@@ -112,6 +112,20 @@
                         </tr>
                         @endif
                         @endif
+                        @if($order->status_order_id == 7)
+                        <tr>
+                          <td>Bukti Retur</td>
+                          <td>:</td>
+                          <td  class="p-2"><img src="{{ asset('storage/'.$order->bukti_retur) }}" alt="" srcset="" class="img-fluid" width="300"></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td  class="p-2"><a href="{{ route('admin.transaksi.konfirmasi',['id' => $order->id]) }}" onclick="return confirm('Yakin ingin kirim kembali pesanan ini?')" class="btn btn-primary mt-1">Konfirmasi Kirim Kembali</a><br>
+                        <small>Atur Pengiriman Kembali</small>
+                        </td>
+                    </tr>
+                        @endif
                         @if($order->status_order_id == 3)
                         <tr>
                             <td>No Resi</td>

@@ -121,6 +121,10 @@
                                         <td>{{ $o->subtotal + $o->biaya_cod }}</td>
                                         <td>{{ $o->name }}</td>
                                         <td>
+                                            @if($o->status_order_id != 7)
+                                            <a href="{{ route('user.order.retur', ['order' => $o->id]) }}"
+                                                class="btn btn-success">Retur</a>
+                                            @endif
                                             <a href="{{ route('user.order.detail', ['id' => $o->id]) }}"
                                                 class="btn btn-success">Detail</a>
                                         </td>
